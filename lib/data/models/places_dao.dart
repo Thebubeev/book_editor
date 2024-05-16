@@ -1,7 +1,13 @@
 import 'package:book_editor/data/models/place_model.dart';
 
-// Общая модель базы данных
+/* 
+Объект класса является объектом базы данных, который будет отвечать за 
+все модели БД. Текущий объект также будет использоваться для процедур 
+вставки, удаления, корректировки и чтения записей. 
+*/
 class PlacesDao {
+
+// Атрибуты класса в строковом типе: 
   final tableName = 'places';
   final columnId = 'id';
   final _columnAutorName = 'autorName';
@@ -15,6 +21,11 @@ class PlacesDao {
   final _columnPriceCopy = 'priceCopy';
   final _columnAutorSalary = 'autorSalary';
 
+/*
+Процедура createTableQuery будет возвращать запрос SQL для создания 
+таблицы. 
+Все атрибуты класса будут вписаны в запрос.
+*/
   String get createTableQuery =>
       "CREATE TABLE $tableName($columnId INTEGER PRIMARY KEY,"
       " $_columnAutorName TEXT,"
@@ -28,6 +39,11 @@ class PlacesDao {
       " $_columnPriceCopy TEXT,"
       " $_columnAutorSalary TEXT)";
 
+/*
+Процедура fromMap будет принимать переменную в JSON – формате и 
+возвращать объект PlaceModel. 
+Он выполняет функцию преобразователя из JSON формата в объект PlaceModel.
+*/
   PlaceModel fromMap(Map<String, dynamic> query) {
     PlaceModel place = PlaceModel(
       id: query[columnId].toString(),
@@ -45,6 +61,11 @@ class PlacesDao {
     return place;
   }
 
+/*
+Процедура toMap будет принимать объект PlaceModel и 
+возвращать переменную в JSON формате.  
+Он выполняет функцию преобразователя из объекта PlaceModel в JSON формат.
+*/
   Map<String, dynamic> toMap(PlaceModel object) {
     return <String, dynamic>{
       _columnAutorName: object.autorName,
@@ -60,6 +81,10 @@ class PlacesDao {
     };
   }
   
+/*
+Процедура fromList будет принимать список JSON переменных и 
+возвращать список объектов PlaceModel.
+*/
   List<PlaceModel> fromList(List<Map<String, dynamic>> query) {
     List<PlaceModel> placesList = <PlaceModel>[];
     for (Map<String, dynamic> map in query) {
