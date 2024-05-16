@@ -17,6 +17,9 @@ class ChangeScreen extends StatefulWidget {
 
 class _ChangeScreenState extends State<ChangeScreen> {
   late PlaceModel? placeModel;
+
+
+
   @override
   void initState() {
     setState(() {
@@ -27,6 +30,8 @@ class _ChangeScreenState extends State<ChangeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    // Эти переменные предназначены за ввод текста в поля.
     TextEditingController autorNameController =
         TextEditingController(text: placeModel?.autorName);
     TextEditingController bookNameController =
@@ -49,7 +54,7 @@ class _ChangeScreenState extends State<ChangeScreen> {
         text: widget.initialPlace?.autorSalary.toString());
     final formKey = GlobalKey<FormState>();
 
-    
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -136,6 +141,7 @@ class _ChangeScreenState extends State<ChangeScreen> {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
                         if (widget.initialPlace != null) {
+                          // Вызывается процедура корректировки
                           await SqflitePlacesDaoRepository()
                               .update(PlaceModel(
                             id: widget.initialPlace!.id,
@@ -158,6 +164,7 @@ class _ChangeScreenState extends State<ChangeScreen> {
                             });
                           });
                         } else {
+                          // Вызывается процедура добавления
                           await SqflitePlacesDaoRepository().insert(PlaceModel(
                             id: '',
                             autorName: autorNameController.text.trim(),

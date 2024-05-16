@@ -25,6 +25,7 @@ class _MainScreenState extends State<MainScreen> {
 
 
   getPlaces() async {
+ // Вызывается процедура чтения
     final updatedPlaces = await SqflitePlacesDaoRepository().getPlacesDao();
     setState(() {
       places = updatedPlaces;
